@@ -125,7 +125,7 @@ def get_color_of_region(region, scribbled_img, original_img):
 Given a black and white image with color scribbles (scribbled), and 
 the same BW image without the scribbles (original), color in
 """
-def colorize(original, scribbled, edge_dense = False):
+def colorize(original, scribbled, edge_dense = False, fill_remaining = False):
     edges = get_edge_array(original, edge_dense = edge_dense)
     r, remaining = get_all_regions(edges)
     color_map = get_colors_of_regions(r, scribbled, original)
@@ -139,7 +139,7 @@ def colorize(original, scribbled, edge_dense = False):
         y = pixel[1]
         brightness = original[x][y]/255
         color_in(backtobgr, pixel, scale_color(color_scheme, brightness))
-    if edge_dense:
+    if fill_remaining:
       colorized_edge_undense = colorize(original,scribbled, edge_dense = False)
       for pixel in remaining:
         backtobgr[pixel[0]][pixel[1]] = colorized_edge_undense[pixel[0]][pixel[1]]
@@ -204,11 +204,14 @@ def view_regions(img, scribble, edge_dense = False):
 # original_filename = "images/egypt_pyramids.jpeg"
 # scribbled_filename = "image_scribbles/egypt_pyramids_scribble.jpeg"
 
-original_filename = "images/dum_dum.jpeg"
-scribbled_filename = "image_scribbles/dum_dum_scribble.jpeg"
+# original_filename = "images/dum_dum.jpeg"
+# scribbled_filename = "image_scribbles/dum_dum_scribble.jpeg"
 
 # original_filename = "images/Bliss_(Windows_XP).png"
 # scribbled_filename = "image_scribbles/Bliss_(Windows_XP)_scribble.png"
+
+original_filename = "images/lincoln_gray.jpeg"
+scribbled_filename = "image_scribbles/lincoln_gray_scribble.jpeg"
 
 scribbled = cv2.imread(scribbled_filename)
 original = cv2.imread(original_filename, 0)
@@ -220,6 +223,6 @@ cv2.imshow("original", original)
 cv2.imshow("original", scribbled)
 # view_regions(original, scribbled, edge_dense = True) 
 # # cv2_imshow(original_color)
-colorized = colorize(original, scribbled, edge_dense = True)
+colorized = colorize(original, scribbled, edge_dense = True, fill_remaining = True)
 cv2.imshow("colorized", colorized)
 cv2.waitKey(0)
