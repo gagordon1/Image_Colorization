@@ -210,8 +210,8 @@ def view_regions(img, scribble, edge_dense = False):
 # original_filename = "images/Bliss_(Windows_XP).png"
 # scribbled_filename = "image_scribbles/Bliss_(Windows_XP)_scribble.png"
 
-original_filename = "images/lincoln_gray.jpeg"
-scribbled_filename = "image_scribbles/lincoln_gray_scribble.jpeg"
+# original_filename = "images/lincoln_gray.jpeg"
+# scribbled_filename = "image_scribbles/lincoln_gray_scribble.jpeg"
 
 scribbled = cv2.imread(scribbled_filename)
 original = cv2.imread(original_filename, 0)
